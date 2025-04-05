@@ -10,7 +10,7 @@ interface VideoInfo {
     itag: number;
     url: string;
     mimeType: string | undefined;
-    quality: VideoFormatQuality;
+    quality: string;
     qualityLabel: string;
     contentLength: string;
   }>;
@@ -43,7 +43,7 @@ const handler: Handler = async (event) => {
         itag: format.itag,
         url: format.url,
         mimeType: format.mimeType,
-        quality: format.quality,
+        quality: String(format.quality),
         qualityLabel: format.qualityLabel,
         contentLength: format.contentLength
       }))
