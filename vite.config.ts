@@ -15,17 +15,25 @@ export default defineConfig({
     assetsDir: "assets",
     manifest: true,
     modulePreload: false,
+    sourcemap: false,
     rollupOptions: {
       output: {
+        manualChunks: undefined,
         assetFileNames: (assetInfo) => {
           const name = assetInfo.name || '';
-          if (name.endsWith('.js')) {
-            return 'assets/[name].[hash].js';
+          if (/\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/i.test(name)) {
+            return `assets/media/[name].[hash].[ext]`;
           }
-          return 'assets/[name].[hash].[ext]';
+          if (/\.(png|jpe?g|gif|svg|ico|webp)(\?.*)?$/i.test(name)) {
+            return `assets/img/[name].[hash].[ext]`;
+          }
+          if (/\.(woff2?|eot|ttf|otf)(\?.*)?$/i.test(name)) {
+            return `assets/fonts/[name].[hash].[ext]`;
+          }
+          return `assets/[name].[hash].[ext]`;
         },
-        chunkFileNames: 'assets/[name].[hash].js',
-        entryFileNames: 'assets/[name].[hash].js'
+        chunkFileNames: 'assets/js/[name].[hash].js',
+        entryFileNames: 'assets/js/[name].[hash].js'
       }
     }
   },
