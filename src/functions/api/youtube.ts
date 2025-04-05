@@ -83,7 +83,8 @@ export const handler: Handler = async (event) => {
         formats: info.formats
       })
     };
-  } catch (error) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
     return {
       statusCode: 500,
       headers: {
@@ -92,7 +93,7 @@ export const handler: Handler = async (event) => {
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS'
       },
-      body: JSON.stringify({ error: error.message })
+      body: JSON.stringify({ error: errorMessage })
     };
   }
 };

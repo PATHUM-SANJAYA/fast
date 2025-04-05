@@ -6,8 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm install --production=false && npm run build:functions && vite build",
-    "build:functions": "tsc -p tsconfig.functions.json && npm run copy:deps",
-    "copy:deps": "powershell -Command \"Copy-Item -Path node_modules -Destination netlify/functions -Recurse -Force\"",
+    "build:functions": "tsc -p tsconfig.functions.json && mkdir -p netlify/functions/node_modules && cp -R node_modules/* netlify/functions/node_modules/",
     "preinstall": "npm install -g npm@10.2.3",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -25,7 +24,8 @@
     "vite": "^5.0.12",
     "typescript": "^5.3.3",
     "@netlify/functions": "^1.5.0",
-    "ytdl-core": "^4.11.5"
+    "ytdl-core": "^4.11.5",
+    "@types/ytdl-core": "^4.11.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
