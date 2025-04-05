@@ -1,5 +1,5 @@
 import { Handler } from '@netlify/functions';
-import ytdl, { VideoFormatQuality } from 'ytdl-core';
+import ytdl from 'ytdl-core';
 
 interface VideoInfo {
   title: string;
