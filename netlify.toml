@@ -9,6 +9,13 @@
   directory = "netlify/functions"
 
 [[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
   for = "/.netlify/functions/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
@@ -16,36 +23,34 @@
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
 
 [[headers]]
-  for = "/assets/*"
+  for = "/index.html"
   [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/html; charset=utf-8"
 
 [[headers]]
-  for = "/assets/*.js"
+  for = "/*.js"
   [headers.values]
     Content-Type = "application/javascript; charset=utf-8"
 
 [[headers]]
-  for = "/assets/*.css"
+  for = "/*.css"
   [headers.values]
     Content-Type = "text/css; charset=utf-8"
 
 [[headers]]
-  for = "/assets/*.json"
+  for = "/*.json"
   [headers.values]
     Content-Type = "application/json; charset=utf-8"
 
 [[headers]]
-  for = "/assets/*.webmanifest"
+  for = "/*.webmanifest"
   [headers.values]
     Content-Type = "application/manifest+json; charset=utf-8"
 
 [[headers]]
-  for = "/*"
+  for = "/assets/*"
   [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
+    Cache-Control = "public, max-age=31536000, immutable"
 
 [[redirects]]
   from = "/api/*"
