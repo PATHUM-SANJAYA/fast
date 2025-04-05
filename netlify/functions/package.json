@@ -1,0 +1,9 @@
+{
+  "name": "functions",
+  "version": "1.0.0",
+  "dependencies": {
+    "@netlify/functions": "^1.5.0",
+    "vidconvertly": "file:../..",
+    "ytdl-core": "^4.11.5"
+  }
+}

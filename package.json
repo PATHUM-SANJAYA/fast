@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm install --production=false && npm run build:functions && vite build",
-    "build:functions": "rm -rf netlify/functions && tsc -p tsconfig.functions.json && mkdir -p netlify/functions/api && cp -R src/functions/api/*.ts netlify/functions/api/ && echo '{\"name\":\"functions\",\"version\":\"1.0.0\",\"dependencies\":{\"@netlify/functions\":\"^1.5.0\",\"ytdl-core\":\"^4.11.5\"}}' > netlify/functions/package.json && npm install --prefix netlify/functions && cp -R node_modules/@netlify netlify/functions/node_modules/ && cp -R node_modules/ytdl-core netlify/functions/node_modules/ && cp -R node_modules/@types netlify/functions/node_modules/",
+    "build:functions": "node scripts/build-functions.js",
     "preinstall": "npm install -g npm@10.2.3",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
