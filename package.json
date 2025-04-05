@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "npm install --production=false && npm run build:functions && vite build",
-    "build:functions": "tsc -p tsconfig.functions.json && cp -R node_modules netlify/functions/",
+    "build:functions": "tsc -p tsconfig.functions.json && npm run copy:deps",
+    "copy:deps": "powershell -Command \"Copy-Item -Path node_modules -Destination netlify/functions -Recurse -Force\"",
     "preinstall": "npm install -g npm@10.2.3",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"

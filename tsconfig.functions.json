@@ -2,8 +2,18 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "netlify/functions",
-    "rootDir": "src/functions",
-    "moduleResolution": "node"
+    "rootDir": "src",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "target": "es2020",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "allowJs": true,
+    "noEmit": false
   },
-  "include": ["src/functions/**/*"]
+  "include": ["src/functions/**/*"],
+  "exclude": ["node_modules", "dist", "public"]
 }
