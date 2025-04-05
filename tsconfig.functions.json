@@ -14,7 +14,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "allowJs": true
+    "allowJs": true,
+    "declaration": false
   },
   "include": ["src/functions/**/*.ts"],
   "exclude": ["node_modules"]
