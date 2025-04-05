@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   functions = "netlify/functions"
   publish = "dist"
 
@@ -17,9 +17,8 @@
   targetPort = 5173
   port = 3008
   functionsPort = 3009
-  autoLaunch = true
 
 [build.environment]
-  PYTHON_VERSION = "3.9"
   NODE_VERSION = "18.0.0"
   NPM_VERSION = "9.5.0"
+  VITE_API_URL = "/.netlify/functions/api"
