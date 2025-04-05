@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm install --include=dev && npm run build:functions && vite build",
-    "build:functions": "tsc -p tsconfig.functions.json",
+    "build": "npm install --production=false && npm run build:functions && vite build",
+    "build:functions": "tsc -p tsconfig.functions.json && cp -R node_modules netlify/functions/",
     "preinstall": "npm install -g npm@10.2.3",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
@@ -23,7 +23,8 @@
     "tailwindcss-animate": "^1.0.7",
     "vite": "^5.0.12",
     "typescript": "^5.3.3",
-    "@netlify/functions": "^1.5.0"
+    "@netlify/functions": "^1.5.0",
+    "ytdl-core": "^4.11.5"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

@@ -5,7 +5,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["ytdl-core", "tiktok-scraper"]
+  included_files = ["src/functions/**/*.ts"]
 
 [[redirects]]
   from = "/api/*"
