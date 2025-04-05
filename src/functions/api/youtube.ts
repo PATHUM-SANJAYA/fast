@@ -7,9 +7,9 @@ interface VideoInfo {
   lengthSeconds: string;
   viewCount: string;
   formats: Array<{
-    itag: string;
+    itag: number;
     url: string;
-    mimeType: string;
+    mimeType: string | undefined;
     quality: string;
     qualityLabel: string;
     contentLength: string;
