@@ -23,13 +23,9 @@
     Access-Control-Allow-Methods = "GET, POST, OPTIONS"
 
 [[headers]]
-  for = "/index.html"
+  for = "/assets/*"
   [headers.values]
-    Content-Type = "text/html; charset=utf-8"
-
-[[headers]]
-  for = "/*.js"
-  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
     Content-Type = "application/javascript; charset=utf-8"
 
 [[headers]]
@@ -43,14 +39,9 @@
     Content-Type = "application/json; charset=utf-8"
 
 [[headers]]
-  for = "/*.webmanifest"
+  for = "/site.webmanifest"
   [headers.values]
     Content-Type = "application/manifest+json; charset=utf-8"
-
-[[headers]]
-  for = "/assets/*"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000, immutable"
 
 [[redirects]]
   from = "/api/*"

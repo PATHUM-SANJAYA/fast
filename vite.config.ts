@@ -14,15 +14,18 @@ export default defineConfig({
     outDir: "dist",
     assetsDir: "assets",
     manifest: true,
-    modulePreload: {
-      polyfill: true
-    },
+    modulePreload: false,
     rollupOptions: {
       output: {
-        manualChunks: undefined,
-        entryFileNames: "[name].[hash].js",
-        chunkFileNames: "[name].[hash].js",
-        assetFileNames: "[name].[hash].[ext]"
+        assetFileNames: (assetInfo) => {
+          const name = assetInfo.name || '';
+          if (name.endsWith('.js')) {
+            return 'assets/[name].[hash].js';
+          }
+          return 'assets/[name].[hash].[ext]';
+        },
+        chunkFileNames: 'assets/[name].[hash].js',
+        entryFileNames: 'assets/[name].[hash].js'
       }
     }
   },
