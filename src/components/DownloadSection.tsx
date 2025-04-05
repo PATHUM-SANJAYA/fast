@@ -103,7 +103,7 @@ const VideoPreview: React.FC<{
 
       console.log('Starting download with params:', downloadParams); // Debug log
 
-      const response = await fetch('http://127.0.0.1:8000/api/download', {
+      const response = await fetch('/api/download', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -346,41 +346,34 @@ const DownloadSection: React.FC = () => {
 
   const handleUrlSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!url || !isValidUrl(url)) {
-      setError('Please enter a valid video URL');
-      setVideoInfo(null);
-      return;
-    }
+    setError('');
+    setIsLoading(true);
+    setVideoInfo(null);
 
     try {
-      setIsLoading(true);
-      setError(null);
-
-      const response = await fetch(`http://127.0.0.1:8000/api/info?url=${encodeURIComponent(url)}`);
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || errorData.message || 'Failed to fetch video information');
+      const response = await fetch(`/api/info?url=${encodeURIComponent(url)}`);
+      const text = await response.text();
+      
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error('Invalid JSON response:', text);
+        throw new Error('Server returned invalid JSON response');
       }
 
-      const info = await response.json();
-      console.log('Video info received:', info); // Debug log
-      
-      setVideoInfo({
-        title: info.title || '',
-        duration: info.duration || '',
-        thumbnail: info.thumbnail || '',
-        formats: info.formats || [],
-        platform: info.platform || getPlatformFromUrl(url),
-        url: url
-      });
-    } catch (err) {
-      console.error('Error fetching video info:', err);
-      setError(
-        err instanceof Error ? err.message : 
-        typeof err === 'object' && err !== null && 'detail' in err ? 
-        (err as any).detail : 'Failed to fetch video information. Please try again.'
-      );
-      setVideoInfo(null);
+      if (!response.ok) {
+        throw new Error(data.error || 'Server error');
+      }
+
+      if (!data.formats || data.formats.length === 0) {
+        throw new Error('No downloadable formats found');
+      }
+
+      setVideoInfo(data);
+    } catch (error: any) {
+      console.error('Error:', error);
+      setError(error.message || 'Failed to fetch video information');
     } finally {
       setIsLoading(false);
     }
@@ -513,7 +506,7 @@ const DownloadSection: React.FC = () => {
             <div className="mt-4 text-center">
               <button className="text-[#99cc00] hover:text-[#8ab800] text-sm flex items-center justify-center mx-auto gap-1">
                 <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0110 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 How to download?

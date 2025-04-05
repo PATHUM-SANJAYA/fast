@@ -1,15 +1,25 @@
 [build]
+  command = "npm run build"
   functions = "netlify/functions"
-  publish = "frontend/dist"
-
-[build.environment]
-  PYTHON_VERSION = "3.9"
-
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
+  publish = "dist"
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["ffmpeg-static"] 
+  included_files = ["netlify/functions/**/*"]
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[dev]
+  framework = "vite"
+  targetPort = 5173
+  port = 3008
+  functionsPort = 3009
+  autoLaunch = true
+
+[build.environment]
+  PYTHON_VERSION = "3.9"
+  NODE_VERSION = "18.0.0"
+  NPM_VERSION = "9.5.0"

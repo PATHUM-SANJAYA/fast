@@ -1,10 +1,13 @@
 {
-  "name": "video-downloader-functions",
+  "name": "vidconvertly-functions",
   "version": "1.0.0",
-  "description": "Netlify functions for video downloading",
-  "main": "api.js",
+  "description": "Serverless functions for VidConvertly",
+  "main": "download.js",
   "dependencies": {
-    "yt-dlp-exec": "^1.0.0",
-    "ffmpeg-static": "^5.2.0"
+    "cors": "^2.8.5",
+    "ffmpeg-static": "^5.2.0",
+    "node-fetch": "^2.7.0",
+    "play-dl": "^1.9.7",
+    "ytdl-core": "^4.11.5"
   }
-} 
+}
