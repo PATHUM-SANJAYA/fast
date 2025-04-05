@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm install --production=false && npm run build:functions && vite build",
-    "build:functions": "tsc -p tsconfig.functions.json && node scripts/copy-deps.js && node scripts/copy-functions.js",
+    "build:functions": "tsc -p tsconfig.functions.json && mkdir -p netlify/functions/api && cp -R src/functions/api/*.js netlify/functions/api/ && node scripts/copy-deps.js",
     "preinstall": "npm install -g npm@10.2.3",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
